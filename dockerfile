@@ -1,30 +1,31 @@
-# ベースイメージ
-FROM golang:1.23 as builder
+# ベースイメージを使用してビルドフェーズを設定
+FROM golang:1.23 AS builder
 
-# アプリケーションの作業ディレクトリを作成
+# 作業ディレクトリを設定
 WORKDIR /app
 
-# モジュールファイルと依存関係をコピー
+# モジュールファイルをコピーして依存関係をダウンロード
 COPY go.mod go.sum ./
 RUN go mod download
 
-# アプリケーションのソースコードをコピー
+# ソースコードをコピーしてビルド
 COPY . .
-
-# アプリケーションをビルド
 RUN go build -o main ./cmd/main.go
 
-# 実行環境
-FROM debian:bullseye-slim
+# 実行環境として Ubuntu 最新版を使用
+FROM ubuntu:22.04
 
 # 必要なツールをインストール
-RUN apt-get update && apt-get install -y ca-certificates && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y ca-certificates && apt-get clean
 
 # 作業ディレクトリを設定
 WORKDIR /root/
 
-# ビルドされたアプリケーションをコピー
+# ビルド済みのバイナリをコピー
 COPY --from=builder /app/main .
+
+# 必要なポートを公開
+EXPOSE 8080
 
 # アプリケーションを実行
 CMD ["./main"]
