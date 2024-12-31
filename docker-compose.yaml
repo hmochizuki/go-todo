@@ -9,6 +9,8 @@ services:
       - "8080:8080"
     depends_on:
       - postgres
+    env_file:
+      - .env
     environment:
       DB_HOST: ${DB_HOST}
       DB_USER: ${DB_USER}
@@ -21,9 +23,9 @@ services:
     container_name: go_todo_postgres
     restart: always
     environment:
-      POSTGRES_USER: go_user
-      POSTGRES_PASSWORD: securepassword
-      POSTGRES_DB: go_todo
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
     ports:
       - "5432:5432"
     volumes:

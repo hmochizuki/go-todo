@@ -1,18 +1,24 @@
 package main
 
 import (
+	"go-todo/internal/domain"
 	"go-todo/internal/handlers"
 	"go-todo/internal/storage"
 	"log"
 
-	"github.com/joho/godotenv"
 	"github.com/labstack/echo/v4"
 )
 
 func main() {
-	err := godotenv.Load()
+	db, err := storage.ConnectDB()
 	if err != nil {
-		log.Fatalf("Error loading .env file: %v", err)
+		log.Fatalf("Error connecting to database: %v", err)
+	}
+
+	// マイグレーションの実行
+	err = db.AutoMigrate(&domain.Todo{})
+	if err != nil {
+		log.Fatalf("Error during migration: %v", err)
 	}
 
 	e := echo.New()
