@@ -1,1 +1,38 @@
+# バイナリファイル
+*.exe
+*.out
+*.o
+bin/
+main
+
+# モジュールキャッシュ
+vendor/
+go.sum
+
+# テストのキャッシュデータ
+*.test
+
+# 一時ファイル
+*.tmp
+*.log
+*.swp
+
+# 環境変数
 .env
+secrets.env
+
+# IDE / エディタ
+.vscode/
+.idea/
+*.swp
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Docker
+*.tar
+*.img
+volumes/
