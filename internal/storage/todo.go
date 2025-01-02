@@ -42,7 +42,7 @@ func (s *TodoStorage) GetAll() ([]domain.Todo, error) {
 
 func (s *TodoStorage) GetById(id uint) (domain.Todo, error) {
 	var todo domain.Todo
-	result := s.db.First(&todo, id)
+	result := s.db.First(&todo, id).Where("deleted = false")
 	if result.Error != nil {
 		return domain.Todo{}, result.Error
 	}
