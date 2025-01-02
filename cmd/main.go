@@ -1,7 +1,7 @@
 package main
 
 import (
-	"go-todo/internal/domain"
+	"go-todo/internal/db"
 	"go-todo/internal/handlers"
 	"go-todo/internal/storage"
 	"log"
@@ -10,13 +10,13 @@ import (
 )
 
 func main() {
-	db, err := storage.ConnectDB()
+	connectedDB, err := db.ConnectDB()
 	if err != nil {
 		log.Fatalf("Error connecting to database: %v", err)
 	}
 
 	// マイグレーションの実行
-	err = db.AutoMigrate(&domain.Todo{})
+	err = connectedDB.AutoMigrate(&db.Todo{}, &db.User{})
 	if err != nil {
 		log.Fatalf("Error during migration: %v", err)
 	}
