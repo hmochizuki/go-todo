@@ -12,6 +12,10 @@ type TodoHandler struct {
 	Service domain.TodoService
 }
 
+func NewTodoHandler(service domain.TodoService) *TodoHandler {
+	return &TodoHandler{Service: service}
+}
+
 func (h *TodoHandler) GetTodos(c echo.Context) error {
 	todos, err := h.Service.GetAll()
 	if err != nil {
@@ -25,11 +29,11 @@ func (h *TodoHandler) CreateTodo(c echo.Context) error {
 	if err := c.Bind(&todo); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "invalid request"})
 	}
-	newTodo, err := h.Service.Add(todo)
+	err := h.Service.Create(todo)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
 	}
-	return c.JSON(http.StatusCreated, newTodo)
+	return c.JSON(http.StatusCreated, nil)
 }
 
 func (h *TodoHandler) DeleteTodo(c echo.Context) error {

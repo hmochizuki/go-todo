@@ -1,12 +1,12 @@
 package domain
 
 type Todo struct {
-	ID   int    `json:"id"`
-	Name string `json:"name"`
+	ID   uint
+	Name string
 }
 
 type TodoService interface {
 	GetAll() ([]Todo, error)
-	Add(todo Todo) (Todo, error)
+	Create(todo Todo) error
 	Delete(id int) error
 }

@@ -22,12 +22,9 @@ func main() {
 	}
 
 	e := echo.New()
-
-	// サービスとハンドラのセットアップ
-	todoStorage := storage.NewInMemoryTodoStorage()
+	// TODOルートの登録
+	todoStorage := storage.NewTodoStorage(connectedDB)
 	todoHandler := handlers.TodoHandler{Service: todoStorage}
-
-	// ルートの登録
 	e.GET("/todos", todoHandler.GetTodos)
 	e.POST("/todo", todoHandler.CreateTodo)
 	e.DELETE("/todo/:id", todoHandler.DeleteTodo)
