@@ -50,7 +50,7 @@ func (s *TodoStorage) GetById(id uint) (domain.Todo, error) {
 }
 
 func (s *TodoStorage) Delete(id uint) error {
-	result := s.db.Delete(&domain.Todo{}, id)
+	result := s.db.Model(&db.Todo{}).Where("id = ?", id).Update("deleted", true)
 	if result.Error != nil {
 		return result.Error
 	}
