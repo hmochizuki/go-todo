@@ -7,16 +7,30 @@ import (
 	"log"
 
 	"github.com/labstack/echo/v4"
+	"gorm.io/gorm"
 )
 
+func initDB(gdb *gorm.DB) error {
+	err := gdb.AutoMigrate(&db.User{})
+	if err != nil {
+		return err
+	}
+
+	err = gdb.AutoMigrate(&db.Todo{})
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 func main() {
+	// DB接続とマイグレーションの実行
 	connectedDB, err := db.ConnectDB()
 	if err != nil {
 		log.Fatalf("Error connecting to database: %v", err)
 	}
-
-	// マイグレーションの実行
-	err = connectedDB.AutoMigrate(&db.Todo{}, &db.User{})
+	err = initDB(connectedDB)
 	if err != nil {
 		log.Fatalf("Error during migration: %v", err)
 	}
@@ -29,6 +43,5 @@ func main() {
 	e.POST("/todo", todoHandler.CreateTodo)
 	e.DELETE("/todo/:id", todoHandler.DeleteTodo)
 
-	// サーバー起動
 	e.Start(":8080")
 }
