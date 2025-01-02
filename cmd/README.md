@@ -19,6 +19,11 @@ curl -X POST http://localhost:8080/user \
 # 全てのTODO取得
 curl -X GET http://localhost:8080/todos
 
+# 作成
+curl -X POST http://localhost:8080/todo \
+-H "Content-Type: application/json" \
+-d '{"name":"Test Task","userId":"user id"}'
+
 # スタータス更新
 curl -X POST http://localhost:8080/todo/14/status \
 -H "Content-Type: application/json" \
