@@ -8,9 +8,7 @@ import (
 	"gorm.io/gorm"
 )
 
-// ConnectDB establishes a connection to the database using environment variables.
 func ConnectDB() (*gorm.DB, error) {
-	// データベース接続情報を環境変数から取得
 	dsn := fmt.Sprintf(
 		"host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
 		os.Getenv("DB_HOST"),
@@ -20,7 +18,6 @@ func ConnectDB() (*gorm.DB, error) {
 		os.Getenv("DB_PORT"),
 	)
 
-	// GORM を使ってデータベースに接続
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		return nil, fmt.Errorf("failed to connect to database: %w", err)
