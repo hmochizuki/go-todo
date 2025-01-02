@@ -41,6 +41,7 @@ func main() {
 	todoHandler := handlers.TodoHandler{Service: todoStorage}
 	e.GET("/todos", todoHandler.GetAllTodos)
 	e.POST("/todo", todoHandler.CreateTodo)
+	e.POST("/todo/:id/status", todoHandler.UpdateTodoStatus)
 	e.DELETE("/todo/:id", todoHandler.DeleteTodo)
 
 	e.Start(":8080")

@@ -36,6 +36,22 @@ func (h *TodoHandler) CreateTodo(c echo.Context) error {
 	return c.JSON(http.StatusCreated, nil)
 }
 
+func (h *TodoHandler) UpdateTodoStatus(c echo.Context) error {
+	var requestedTodo domain.UpdateTodoStatusRequest
+	if err := c.Bind(&requestedTodo); err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "invalid request"})
+	}
+	id, err := strconv.Atoi(c.Param("id"))
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, map[string]string{"error": "invalid ID"})
+	}
+	err = h.Service.UpdateTodoStatus(uint(id), requestedTodo)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
+	}
+	return c.JSON(http.StatusOK, nil)
+}
+
 func (h *TodoHandler) DeleteTodo(c echo.Context) error {
 	id, err := strconv.Atoi(c.Param("id"))
 	if err != nil {

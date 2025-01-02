@@ -2,14 +2,14 @@ package domain
 
 import "time"
 
-type Status string
+type TodoStatus string
 
 const (
-	TODO     Status = "todo"
-	DOING    Status = "doing"
-	PENDING  Status = "pending"
-	ARCHIVED Status = "archived"
-	DONE     Status = "done"
+	TODO     TodoStatus = "todo"
+	DOING    TodoStatus = "doing"
+	PENDING  TodoStatus = "pending"
+	ARCHIVED TodoStatus = "archived"
+	DONE     TodoStatus = "done"
 )
 
 type Todo struct {
@@ -26,8 +26,13 @@ type CreateTodoRequest struct {
 	UserID string `json:"userId"`
 }
 
+type UpdateTodoStatusRequest struct {
+	Status TodoStatus `json:"status"`
+}
+
 type TodoService interface {
 	GetAll() ([]Todo, error)
 	Create(todo CreateTodoRequest) error
+	UpdateTodoStatus(todoId uint, todo UpdateTodoStatusRequest) error
 	Delete(id int) error
 }
