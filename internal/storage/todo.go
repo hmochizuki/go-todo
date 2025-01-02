@@ -40,7 +40,16 @@ func (s *TodoStorage) GetAll() ([]domain.Todo, error) {
 	return s.todos, nil
 }
 
-func (s *TodoStorage) Delete(id int) error {
+func (s *TodoStorage) GetById(id uint) (domain.Todo, error) {
+	var todo domain.Todo
+	result := s.db.First(&todo, id)
+	if result.Error != nil {
+		return domain.Todo{}, result.Error
+	}
+	return todo, nil
+}
+
+func (s *TodoStorage) Delete(id uint) error {
 	result := s.db.Delete(&domain.Todo{}, id)
 	if result.Error != nil {
 		return result.Error

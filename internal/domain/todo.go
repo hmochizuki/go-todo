@@ -32,7 +32,8 @@ type UpdateTodoStatusRequest struct {
 
 type TodoService interface {
 	GetAll() ([]Todo, error)
+	GetById(id uint) (Todo, error)
 	Create(todo CreateTodoRequest) error
 	UpdateTodoStatus(todoId uint, todo UpdateTodoStatusRequest) error
-	Delete(id int) error
+	Delete(id uint) error
 }

@@ -57,7 +57,7 @@ func (h *TodoHandler) DeleteTodo(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "invalid ID"})
 	}
-	if err := h.Service.Delete(id); err != nil {
+	if err := h.Service.Delete(uint(id)); err != nil {
 		return c.JSON(http.StatusNotFound, map[string]string{"error": "todo not found"})
 	}
 	return c.NoContent(http.StatusNoContent)
