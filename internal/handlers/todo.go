@@ -25,11 +25,11 @@ func (h *TodoHandler) GetAllTodos(c echo.Context) error {
 }
 
 func (h *TodoHandler) CreateTodo(c echo.Context) error {
-	var todo domain.Todo
-	if err := c.Bind(&todo); err != nil {
+	var requestedTodo domain.CreateTodoRequest
+	if err := c.Bind(&requestedTodo); err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "invalid request"})
 	}
-	err := h.Service.Create(todo)
+	err := h.Service.Create(requestedTodo)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
 	}

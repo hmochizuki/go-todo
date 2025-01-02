@@ -15,7 +15,7 @@ func NewTodoStorage(db *gorm.DB) *TodoStorage {
 	return &TodoStorage{db: db}
 }
 
-func (s *TodoStorage) Create(todo domain.Todo) error {
+func (s *TodoStorage) Create(todo domain.CreateTodoRequest) error {
 	result := s.db.Create(&todo)
 	if result.Error != nil {
 		return result.Error
