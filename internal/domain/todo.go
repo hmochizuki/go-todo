@@ -22,7 +22,7 @@ type Todo struct {
 }
 
 type CreateTodoRequest struct {
-	ID     uint   `json:"id"`
+
 	Name   string `json:"name"`
 	UserID string `json:"userId"`
 }
