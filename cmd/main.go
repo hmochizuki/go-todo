@@ -39,7 +39,7 @@ func main() {
 	// TODOルートの登録
 	todoStorage := storage.NewTodoStorage(connectedDB)
 	todoHandler := handlers.TodoHandler{Service: todoStorage}
-	e.GET("/todos", todoHandler.GetTodos)
+	e.GET("/todos", todoHandler.GetAllTodos)
 	e.POST("/todo", todoHandler.CreateTodo)
 	e.DELETE("/todo/:id", todoHandler.DeleteTodo)
 

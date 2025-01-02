@@ -16,7 +16,7 @@ func NewTodoHandler(service domain.TodoService) *TodoHandler {
 	return &TodoHandler{Service: service}
 }
 
-func (h *TodoHandler) GetTodos(c echo.Context) error {
+func (h *TodoHandler) GetAllTodos(c echo.Context) error {
 	todos, err := h.Service.GetAll()
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
