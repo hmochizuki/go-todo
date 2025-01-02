@@ -45,6 +45,12 @@ func (h *TodoHandler) UpdateTodoStatus(c echo.Context) error {
 	if err != nil {
 		return c.JSON(http.StatusBadRequest, map[string]string{"error": "invalid ID"})
 	}
+
+	_, err = h.Service.GetById(uint(id))
+	if err != nil {
+		return c.JSON(http.StatusNotFound, map[string]string{"error": "todo not found"})
+	}
+
 	err = h.Service.UpdateTodoStatus(uint(id), requestedTodo)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"error": err.Error()})
