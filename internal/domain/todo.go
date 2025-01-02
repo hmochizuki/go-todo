@@ -22,7 +22,6 @@ type Todo struct {
 }
 
 type CreateTodoRequest struct {
-
 	Name   string `json:"name"`
 	UserID string `json:"userId"`
 }
