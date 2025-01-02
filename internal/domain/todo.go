@@ -16,7 +16,7 @@ type Todo struct {
 	ID        uint
 	Name      string
 	UserID    string
-	Status    string
+	Status    TodoStatus
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
