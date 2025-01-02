@@ -1,6 +1,10 @@
 package domain
 
-import "time"
+import (
+	"time"
+
+	"github.com/google/uuid"
+)
 
 type TodoStatus string
 
@@ -22,8 +26,8 @@ type Todo struct {
 }
 
 type CreateTodoRequest struct {
-	Name   string `json:"name"`
-	UserID string `json:"userId"`
+	Name   string    `json:"name"`
+	UserID uuid.UUID `json:"userId"`
 }
 
 type UpdateTodoStatusRequest struct {

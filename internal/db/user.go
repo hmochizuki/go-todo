@@ -1,11 +1,15 @@
 package db
 
-import "time"
+import (
+	"time"
+
+	"github.com/google/uuid"
+)
 
 type User struct {
-	ID        string    `gorm:"primaryKey;comment:ユーザーのID"`
+	ID        uuid.UUID `gorm:"type:uuid;default:uuid_generate_v4();primaryKey"`
 	Name      string    `gorm:"comment:ユーザーの氏名"`
-	Email     string    `gorm:"comment:ユーザーのメールアドレス"`
+	Email     string    `gorm:"unique;comment:ユーザーのメールアドレス"`
 	Password  string    `gorm:"comment:ユーザーのパスワード"`
 	CreatedAt time.Time `gorm:"autoCreateTime;comment:作成日時"`
 	UpdatedAt time.Time `gorm:"autoUpdateTime;comment:更新日時"`

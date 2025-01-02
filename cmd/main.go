@@ -44,5 +44,10 @@ func main() {
 	e.POST("/todo/:id/status", todoHandler.UpdateTodoStatus)
 	e.DELETE("/todo/:id", todoHandler.DeleteTodo)
 
+	// Userルートの登録
+	userStorage := storage.NewUserStorage(connectedDB)
+	userHandler := handlers.UserHandler{Service: userStorage}
+	e.POST("/user", userHandler.CreateUser)
+
 	e.Start(":8080")
 }
