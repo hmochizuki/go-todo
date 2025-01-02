@@ -3,7 +3,6 @@ module go-todo
 go 1.23
 
 require (
-	github.com/joho/godotenv v1.5.1
 	github.com/labstack/echo/v4 v4.13.3
 	gorm.io/driver/postgres v1.5.11
 	gorm.io/gorm v1.25.12
